@@ -601,12 +601,13 @@ if 'show_roast' not in st.session_state:
     st.session_state.show_roast = False
 
 # Roast section with toggle button
-st.markdown('<div class="roast-button-container">', unsafe_allow_html=True)
-if st.button("🔥 " + ("Hide Roast" if st.session_state.show_roast else "Roast Me"), key="roast_toggle", use_container_width=False):
-    st.session_state.show_roast = not st.session_state.show_roast
+st.markdown('<div class="roast-button-container" style="display: flex; justify-content: center; margin: 30px 0;">', unsafe_allow_html=True)
+if st.button("🔥 " + ("Hide Roast" if st.session_state.get('show_roast', False) else "Roast Me"), key="roast_toggle"):
+    st.session_state.show_roast = not st.session_state.get('show_roast', False)
+    st.rerun()  # Force the page to refresh and update the button text
 st.markdown('</div>', unsafe_allow_html=True)
 
-if st.session_state.show_roast:
+if st.session_state.get('show_roast', False):
     st.markdown(f'<div class="roast-content">{data["roast"]}</div>', unsafe_allow_html=True)
 
 # Traits visualization section
