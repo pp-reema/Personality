@@ -742,10 +742,10 @@ st.markdown("<h3>Strengths and weaknesses</h3>", unsafe_allow_html=True)
 st.markdown("<div style='display: flex; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
 
 for strength in rel_strengths:
-    st.markdown(f"<div style='background-color: #e8f4f8; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #405de6;'>{strength}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='background-color: #e6f7e6; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #2e8b57; display: inline-block; margin-right: 8px; margin-bottom: 8px;'>{strength}</div>", unsafe_allow_html=True)
 
 for weakness in rel_weaknesses:
-    st.markdown(f"<div style='background-color: #fff0f0; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #e1306c;'>{weakness}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='background-color: #ffebeb; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #d32f2f; display: inline-block; margin-right: 8px; margin-bottom: 8px;'>{weakness}</div>", unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
@@ -766,10 +766,10 @@ st.markdown("<h3>Strengths and weaknesses</h3>", unsafe_allow_html=True)
 st.markdown("<div style='display: flex; flex-wrap: wrap; gap: 10px;'>", unsafe_allow_html=True)
 
 for strength in career_strengths:
-    st.markdown(f"<div style='background-color: #e8f4f8; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #405de6;'>{strength}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='background-color: #e6f7e6; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #2e8b57; display: inline-block; margin-right: 8px; margin-bottom: 8px;'>{strength}</div>", unsafe_allow_html=True)
 
 for weakness in career_weaknesses:
-    st.markdown(f"<div style='background-color: #fff0f0; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #e1306c;'>{weakness}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='background-color: #ffebeb; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #d32f2f; display: inline-block; margin-right: 8px; margin-bottom: 8px;'>{weakness}</div>", unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
