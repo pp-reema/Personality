@@ -89,8 +89,7 @@ instagram_light_css = """
 """
 
 # Streamlit Page 1: Welcome
-st.set_page_config(page_title="AI Personality Interview", layout="centered")
-
+st.set_page_config(page_title="AI Personality Interview", layout="centered", initial_sidebar_state="collapsed")
 # Apply Instagram light theme CSS
 st.markdown(instagram_light_css, unsafe_allow_html=True)
 
