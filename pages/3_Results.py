@@ -256,9 +256,10 @@ st.markdown(light_theme_css, unsafe_allow_html=True)
 
 # Initialize OpenAI client
 try:
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 except Exception as e:
     st.error(f"Error initializing OpenAI client: {e}")
+    client = None
     if st.button("Try Again"):
         st.rerun()
     st.stop()
