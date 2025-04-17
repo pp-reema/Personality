@@ -194,7 +194,7 @@ else:
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "You are an insightful psychologist. Based on the user's previous response, ask a deep, open-ended follow-up question to understand their personality better."},
+                    {"role": "system", "content": "You are an insightful psychologist. Based on the user's previous response, ask an open-ended follow-up question to understand their personality better."},
                     {"role": "user", "content": prev_ans}
                 ]
             )
@@ -262,14 +262,26 @@ with col1:
     # JavaScript to submit form on Enter key
     st.markdown("""
     <script>
-    const textInput = document.querySelector('input[type="text"]');
-    textInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            const submitButton = document.querySelector('button.send-button');
-            if (submitButton) {
-                submitButton.click();
-            }
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add event listener once DOM is fully loaded
+        setTimeout(function() {
+            const textInputs = document.querySelectorAll('input[type="text"]');
+            textInputs.forEach(function(input) {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        // Find the closest send button
+                        const buttons = document.querySelectorAll('button');
+                        for (let button of buttons) {
+                            if (button.innerText === '➤') {
+                                button.click();
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+        }, 1000); // Delay to ensure elements are loaded
     });
     </script>
     """, unsafe_allow_html=True)
@@ -298,35 +310,67 @@ if st.session_state.voice_mode:
     audio_bytes = audio_recorder()
     
     if audio_bytes:
+        st.info("Processing your audio...")
         try:
-            # Convert audio to text using Whisper API
-            with open("temp_audio.wav", "wb") as f:
-                f.write(audio_bytes)
+            # Save audio to file with error handling
+            try:
+                with open("temp_audio.wav", "wb") as f:
+                    f.write(audio_bytes)
+                st.success("Audio saved successfully")
+            except Exception as e:
+                st.error(f"Error saving audio file: {e}")
+                st.stop()
             
+            # Check if file exists and has content
+            import os
+            if os.path.exists("temp_audio.wav") and os.path.getsize("temp_audio.wav") > 0:
+                st.success("Audio file verified")
+            else:
+                st.error("Audio file is empty or not created properly")
+                st.stop()
+            
+            # Verify client initialization
+            if not client:
+                st.error("OpenAI client not properly initialized")
+                st.stop()
+                
+            # Open file for API
             audio_file = open("temp_audio.wav", "rb")
-            transcript = client.audio.transcriptions.create(
-                model="whisper-1",
-                file=audio_file
-            )
-            user_input = transcript.text
             
-            # Display the transcribed text
-            st.markdown(f"""
-            <div class='message-container'>
-                <div class='message user-message'>{user_input}</div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            # Store and proceed
-            if user_input.strip():
-                st.session_state.responses.append(user_input)
-                st.session_state.convo_log[st.session_state.question_index]["answer"] = user_input
-                st.session_state.question_index += 1
-                st.rerun()
+            # Process with Whisper API with more detailed error handling
+            try:
+                transcript = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file
+                )
+                user_input = transcript.text
+                st.success(f"Transcription successful: '{user_input}'")
+                
+                # Display the transcribed text
+                st.markdown(f"""
+                <div class='message-container'>
+                    <div class='message user-message'>{user_input}</div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Store and proceed
+                if user_input.strip():
+                    st.session_state.responses.append(user_input)
+                    st.session_state.convo_log[st.session_state.question_index]["answer"] = user_input
+                    st.session_state.question_index += 1
+                    st.rerun()
+                
+            except Exception as e:
+                st.error(f"Whisper API transcription error: {e}")
+                
+            # Close the file
+            audio_file.close()
                 
         except Exception as e:
             st.error(f"Error processing audio: {e}")
-
+            import traceback
+            st.code(traceback.format_exc())
+            
 st.markdown("</div>", unsafe_allow_html=True)  # Close chat container
 
 # Timer logic - Moved below input
