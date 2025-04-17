@@ -21,6 +21,14 @@ st.markdown("""
 .stApp {
     background-color: #FFFFFF;
 }
+
+/* Adjust width */
+.block-container {
+    max-width: 700px !important;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin: 0 auto;
+    
 .chat-container {
     max-width: 450px; 
     margin: 0 auto;
