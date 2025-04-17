@@ -95,7 +95,7 @@ st.set_page_config(page_title="AI Personality Interview", layout="centered")
 st.markdown(instagram_light_css, unsafe_allow_html=True)
 
 # Title with gradient effect
-st.markdown('<div class="title-text">👋 Welcome to the AI Personality Interview</div>', unsafe_allow_html=True)
+st.markdown('<div class="title-text">Welcome to the AI Personality Test</div>', unsafe_allow_html=True)
 
 # Message in Instagram style container
 st.markdown("""
