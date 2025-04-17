@@ -8,7 +8,7 @@ from audio_recorder_streamlit import audio_recorder
 import io
 from gtts import gTTS
 
-st.set_page_config(page_title="Personality Conversation", layout="wide")
+st.set_page_config(page_title="Personality Conversation", layout="wide", initial_sidebar_state="collapsed")
 
 # Custom CSS for Instagram-like light theme with improved message spacing
 st.markdown("""
