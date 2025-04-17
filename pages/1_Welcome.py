@@ -37,6 +37,13 @@ instagram_light_css = """
         background-color: #fafafa;
     }
     
+    /* adjust width */
+    .block-container {
+        max-width: 700px !important;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        margin: 0 auto;
+    }
     /* Button styling */
     .stButton>button {
         background-color: #0095F6;
